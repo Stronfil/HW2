@@ -1,0 +1,20 @@
+version: '3.2'
+
+volumes:
+  cloud-postgres:
+    driver: local
+
+services:
+  postgres:
+    image: library/postgres:latest
+    container_name: dbsql
+    volumes:
+      - type: volume
+        target: /var/lib/postgresql
+    environment:
+      POSTGRES_DB: sql2o
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password777
+    ports:
+      - 5434:5432
+

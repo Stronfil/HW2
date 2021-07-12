@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Moderator tools</title>
+</head>
+<body>
+
+    <div th:replace="~{header :: header(Moderator)}"/>
+    <h1 class="font-weight-bold text-light bg-info" align="center">WELCOME TO HOME MODERATOR</h1>
+
+    <div class="container" th:if="${product != null}">
+        <form th:action="@{/moderator/update}" th:object="${product}" method="POST">
+            <input hidden th:field="*{id}">
+            <input hidden th:field="*{title}">
+            <div class="mb-3">
+                <label class="form-label">Tittle</label>
+                <label class="form-control" th:text="*{title}"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input th:field="*{description}" type="text" class="form-control" id="exampleInputEmail1">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Rub</label>
+                <input th:field="*{priceRub}" type="number" step="1" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Penny</label>
+                <input th:field="*{pricePenny}"  type="number" step="1" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Permit</button>
+        </form>
+    </div>
+
+</body>
+</html>

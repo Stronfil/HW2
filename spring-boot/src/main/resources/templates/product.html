@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Catalog</title>
+</head>
+
+<body>
+<div align="center">
+    <h1>All Products</h1>
+</div>
+<div class="btn btn-dark">
+    <a th:href="@{/}">Move to main menu</a>
+</div>
+<div class="container">
+    <h2 style="color: blue" th:if="${products.isEmpty()}">No products available</h2>
+    <table class="table" th:unless="${products.isEmpty()}">
+        <thead>
+        <tr>
+            <td>title</td>
+            <td>cost</td>
+            <td>action</td>
+            <td>action</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${products}">
+            <td th:text="${p.title}"/>
+            <td th:text="${p.cost}"/>
+            <td>
+                <a class="btn btn-warning" th:href="@{'/product/change/' + ${p.id}}">CHANGE</a>
+            </td>
+            <td>
+                <a class="btn btn-danger" th:href="@{'/product/remove/' + ${p.id}}">REMOVE</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" th:href="@{'/product/create'}">CREATE NEW PRODUCT</a>
+</div>
+</body>
+</html>

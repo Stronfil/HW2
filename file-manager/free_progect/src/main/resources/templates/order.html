@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Orders</title>
+</head>
+<body>
+    <div th:replace="~{header :: header(Order)}"/>
+    <h1 class="font-weight-bold text-light bg-dark" align="center">ORDER</h1>
+    <div align="center" th:if="${orders.isEmpty()}">
+        <h2 style="color: blue" >no orders have been created yet</h2>
+        <img th:src="@{/no_orders.ico}">
+    </div>
+
+    <div class="container" th:if="${order != null}">
+        <h1 align="center" class="font-weight-bold text-light bg-primary" th:text="'ORDER №' + ${order.id}"/>
+        <table class="table">
+            <thead class="font-weight-bold bg-warning">
+            <tr>
+                <td>title</td>
+                <td>description</td>
+                <td>price</td>
+                <td>quantity</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${order.orderItemList}">
+                <td th:text="${item.product.title}"/>
+                <td th:text="${item.product.description}"/>
+                <td th:text="${item.product.priceRub} + ' rub ' + ${item.product.pricePenny} + ' penny'"/>
+                <td th:text="${item.quantity}"/>
+            </tr>
+            </tbody>
+        </table>
+        <h3 th:text="${'Total quantity: ' + order.totalQuantity}"/>
+        <h3 th:text="${'Total price: ' + order.totalPriceRub + ' rub ' + order.totalPricePenny + ' penny'}"/>
+        <h3 th:text="${'Date: ' + order.createAt}"/>
+    </div>
+
+    <div class="container" th:unless="${orders.isEmpty()}">
+        <h1 class="font-weight-bold text-light bg-primary" align="center">ORDER LIST</h1>
+        <table class="table" >
+            <thead class="font-weight-bold bg-warning">
+            <tr>
+                <td>quantity</td>
+                <td>price</td>
+                <td>date creation</td>
+                <td>want to know more</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.totalQuantity}"/>
+                <td th:text="${order.totalPriceRub + ' rub ' + order.totalPricePenny + ' penny'}"/>
+                <td th:text="${order.createAt}"/>
+                <td>
+                    <a class="btn btn-success" th:href="@{'/order?id=' + ${order.id}}">show details</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+server:
+  port: 8189
+  servlet:
+    context-path: /boot
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

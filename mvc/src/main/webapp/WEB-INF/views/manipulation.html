@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <title>Manipulation product</title>
+</head>
+
+<body>
+<div align="center">
+    <h1 th:text="${header} +' The Product Unit'"></h1>
+</div>
+<div class="btn btn-dark">
+    <a th:href="@{/}">Move to main menu</a>
+</div>
+<div class="btn btn-dark">
+    <a th:href="@{/product}">Move to catalog</a>
+</div>
+<div class="container">
+    <form th:action="@{/product/save}" th:object="${product}" method="POST">
+        <input hidden th:field="*{id}">
+        <div class="mb-3">
+            <label class="form-label">Tittle</label>
+            <input th:field="*{title}" type="text" class="form-control" id="exampleInputEmail1">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Cost</label>
+            <input th:field="*{price}" type="number" step="0.01" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <input th:field="*{description}" type="text" class="form-control">
+        </div>
+
+        <button th:text="${header}" type="submit" class="btn btn-primary">Confirm</button>
+    </form>
+</div>
+</body>
+</html>
